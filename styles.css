@@ -162,3 +162,114 @@ body {
 }
 
 .trash:hover { background: #f1f5f9; color: #ef4444; }
+.job-meta {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  margin-top: 12px;
+  width: fit-content;
+  border: 1px solid var(--line);
+  color: #334155;
+  background: #f8fafc;
+}
+
+.badge.interview {
+  border-color: rgba(16, 185, 129, 0.25);
+  background: rgba(16, 185, 129, 0.08);
+  color: #047857;
+}
+
+.badge.rejected {
+  border-color: rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.08);
+  color: #b91c1c;
+}
+
+.job-desc {
+  margin: 10px 0 0;
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: white;
+}
+
+.btn.interview {
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #047857;
+}
+
+.btn.rejected {
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #b91c1c;
+}
+
+.btn.interview.active {
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.btn.rejected.active {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.empty {
+  margin-top: 12px;
+}
+
+.empty-box {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 46px 16px;
+  text-align: center;
+}
+
+.empty-title {
+  margin: 14px 0 6px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.empty-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.hidden { display: none; }
+
+@media (max-width: 720px) {
+  .stats { grid-template-columns: 1fr; }
+  .jobs-head { margin-top: 14px; }
+  .title { font-size: 22px; }
+  .actions { flex-direction: column; }
+}
