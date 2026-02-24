@@ -117,3 +117,81 @@ function updateDashboard() {
   interviewCount.textContent = String(countStatus("Interview"));
   rejectedCount.textContent = String(countStatus("Rejected"));
 }
+function updateEmptyText(tab) {
+  emptyTitle.textContent = "No jobs available";
+
+  if (tab === "Interview") {
+    emptySubtitle.textContent = "Mark a job as Interview and it will appear here";
+  } else if (tab === "Rejected") {
+    emptySubtitle.textContent = "Reject a job and it will be listed here";
+  } else {
+    emptySubtitle.textContent = "Check back soon for new job opportunities";
+  }
+}
+
+function setStatus(id, status) {
+  jobs = jobs.map((j) => (j.id === id ? { ...j, status } : j));
+  setActiveTab(status);
+}
+
+function deleteJob(id) {
+  jobs = jobs.filter((j) => j.id !== id);
+  render();
+}
+
+function statusBadge(job) {
+  if (!job.status) return `<div class="badge">NOT APPLIED</div>`;
+  if (job.status === "Interview") return `<div class="badge interview">INTERVIEW</div>`;
+  return `<div class="badge rejected">REJECTED</div>`;
+}
+
+function createCard(job) {
+  const card = document.createElement("div");
+  card.className = "job-card";
+
+  card.innerHTML = `
+    <div class="job-top">
+      <div>
+        <p class="job-company">${job.companyName}</p>
+        <p class="job-position">${job.position}</p>
+      </div>
+
+      <button class="trash" title="Delete" data-action="delete">🗑️</button>
+    </div>
+
+    <div class="job-meta">
+      <span>${job.location}</span>
+      <span>•</span>
+      <span>${job.type}</span>
+      <span>•</span>
+      <span>${job.salary}</span>
+    </div>
+
+    ${statusBadge(job)}
+
+    <p class="job-desc">${job.description}</p>
+
+    <div class="actions">
+      <button class="btn interview ${job.status === "Interview" ? "active" : ""}" data-action="interview">
+        INTERVIEW
+      </button>
+      <button class="btn rejected ${job.status === "Rejected" ? "active" : ""}" data-action="rejected">
+        REJECTED
+      </button>
+    </div>
+  `;
+
+  card.querySelector('[data-action="interview"]').addEventListener("click", () => {
+    setStatus(job.id, "Interview");
+  });
+
+  card.querySelector('[data-action="rejected"]').addEventListener("click", () => {
+    setStatus(job.id, "Rejected");
+  });
+
+  card.querySelector('[data-action="delete"]').addEventListener("click", () => {
+    deleteJob(job.id);
+  });
+
+  return card;
+}
