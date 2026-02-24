@@ -195,3 +195,41 @@ function createCard(job) {
 
   return card;
 }
+function setActiveTab(tab) {
+  activeTab = tab;
+
+  tabs.forEach((btn) => {
+    const isActive = btn.dataset.tab === tab;
+    btn.classList.toggle("active", isActive);
+    btn.setAttribute("aria-selected", isActive ? "true" : "false");
+  });
+
+  render();
+}
+
+tabs.forEach((btn) => {
+  btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
+});
+
+function render() {
+  updateDashboard();
+
+  const visible = getFilteredJobs(activeTab);
+  tabCount.textContent = String(visible.length);
+
+  jobsList.innerHTML = "";
+
+  if (visible.length === 0) {
+    updateEmptyText(activeTab);
+    emptyState.classList.remove("hidden");
+    return;
+  }
+
+  emptyState.classList.add("hidden");
+
+  visible.forEach((job) => {
+    jobsList.appendChild(createCard(job));
+  });
+}
+
+render();
